@@ -19,7 +19,7 @@ const store = createStore(
   rootReducer
 )
 
-document.title = 'Tuan ATP'
+document.title = 'Event Booking Application Admin'
 
 ReactDOM.render(
   <Provider store={store}>
