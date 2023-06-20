@@ -31,13 +31,13 @@ const Users = () => {
   const [listUser, setListUser] = useState();
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    getTutor();
+    getUsers();
     return () => {
       setLoading(false);
     };
   }, []);
 
-  async function getTutor() {
+  async function getUsers() {
     try {
       await callAPI("get", "/users")
         .then((res) => {
@@ -72,7 +72,7 @@ const renderBody = (item, index) => (
 );
   return (
     <div>
-      <h2 className="page-header">customers</h2>
+      <h2 className="page-header">All Users</h2>
       <div className="row">
         <div className="col-12">
           <div className="card">
