@@ -3,6 +3,8 @@
     color: var(--txt-white);
     border-radius: 10px;
     box-shadow: var(--box-shadow);
+    display: inline;
+    margin-right: 10px
 }
 
 .badge-danger {
@@ -20,3 +22,31 @@
 .badge-warning {
     background-color: var(--main-color-orange);
 }
+
+
+.badge-secondary{
+    background-color: var(--second-color-red);
+}
+
+.badge-info{
+    background-color: var(--txt-color);
+}
+
+.badge-light{
+    background-color: var( --main-color-cyan);
+}
+
+.badge-dark{
+    background-color: var(--second-bg-dark);
+}
+
+.badge-muted{
+    background-color: var(--txt-color-dark);
+    color: var(--second-bg-dark);
+}
+
+.badge-white{
+    background-color: var(--second-bg);
+    color: var(--txt-color);
+}
+

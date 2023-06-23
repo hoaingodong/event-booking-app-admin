@@ -18,6 +18,8 @@ const badgeStatus = {
     banned: "danger",
 };
 
+const colors = ["success", "primary", "warning", "secondary", "info", "light", "dark", "muted", "white", "danger"]
+
 const Events = () => {
     const [listUser, setListUser] = useState();
     const [loading, setLoading] = useState(false);
@@ -59,8 +61,11 @@ const Events = () => {
             <td>{item.price}</td>
             <td>{item.started_date}</td>
             <td>{item.ended_date}</td>
-            <td>{item.topic}</td>
-            <td><img src={item.image || null} alt=""></img></td>
+            <td> {item.topics.map(topic =>
+                <Badge type={colors[Math.floor(Math.random()*colors.length)]} content={topic}></Badge>)
+            }
+            </td>
+            <td><img width={200} src={item.image.url} alt=""></img></td>
             <td>{item.organizer}</td>
             <td>{loading === true ? "loading..." :
                 <Badge type={badgeStatus[item.verified]} content={item.verified}/>}</td>

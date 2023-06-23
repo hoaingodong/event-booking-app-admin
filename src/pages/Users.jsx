@@ -13,28 +13,17 @@ const customerTableHead = [
   "Role",
   "Interests",
   "Avatar",
-  "Actived",
-  "action",
-  "delete"
+  "Actived"
 ];
+
+const colors = ["success", "primary", "warning", "secondary", "info", "light", "dark", "muted", "white", "danger"]
 
 const renderHead = (item, index) => <th key={index}>{item}</th>;
 
-const badgeStatus = {
-  active: "success",
-  ban: "warning",
-  return: "primary",
-  banned: "danger",
-};
-
 const Users = () => {
   const [listUser, setListUser] = useState();
-  const [loading, setLoading] = useState(false);
   useEffect(() => {
     getUsers();
-    return () => {
-      setLoading(false);
-    };
   }, []);
 
   async function getUsers() {
@@ -47,27 +36,18 @@ const Users = () => {
     } catch (error) {}
   }
 
-const deleteUser = async (id) => {
-  setLoading(true);
-  const res = await callAPI("DELETE", `user/${id}`)
-  setLoading(false);
-  alert(res.data)
-  window.location.reload();
-}
-
 const renderBody = (item, index) => (
   <tr key={index}>
     <td>{++index}</td>
     <td>{item.email}</td>
     <td>{item.name}</td>
     <td>{item.role}</td>
-    <td>{item.interests}</td>
+      <td> {item.interests.map(interest =>
+          <Badge type={colors[Math.floor(Math.random()*colors.length)]} content={interest}></Badge>)
+      }
+      </td>
     <td><img src = {item.avatar || null} alt =""></img></td>
     <td>{String(item.verified)}</td>
-    <td>{loading === true ? "loading..." :<Badge type={badgeStatus[item.verified]} content={item.verified} />}</td>
-    <td><div className='cursor_pointer' onClick={()=> deleteUser(item._id)} >
-      <Badge type="danger" content="delete" /></div>
-    </td>
   </tr>
 );
   return (
