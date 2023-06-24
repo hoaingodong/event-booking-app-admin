@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useMemo} from 'react'
 
 import './layout.css'
 
@@ -15,7 +15,6 @@ import ThemeAction from '../../redux/actions/ThemeAction'
 import loggedIn from "../../auth/loggedIn";
 import Login from '../../pages/authentication/Login'
 import { useHistory } from 'react-router-dom'
-
 
 
 const Layout = () => {
@@ -35,11 +34,19 @@ const Layout = () => {
 
         dispatch(ThemeAction.setColor(colorClass))
     }, [dispatch])
+
+    const login = loggedIn()
+
+    useEffect(() => {
+
+        if(!loggedIn()){
+            history.push("/");
+            return <Login />
+        }
+    }, [login])
     
-    // if(!loggedIn()){
-    //     history.push("/");
-    //     return <Login />
-    // }
+   
+
     return (
         <BrowserRouter>
             <Route render={(props) => (

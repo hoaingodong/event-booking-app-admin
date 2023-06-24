@@ -64,8 +64,8 @@ const Events = () => {
             <td> {item.topics.map(topic =>
                 <Badge type={colors[Math.floor(Math.random()*colors.length)]} content={topic}></Badge>)
             }
-            </td>
-            <td><img width={200} src={item.image.url} alt=""></img></td>
+    </td>
+            <td><img width={200} src={item?.image?.url} alt=""></img></td>
             <td>{item.organizer}</td>
             <td>{loading === true ? "loading..." :
                 <Badge type={badgeStatus[item.verified]} content={item.verified}/>}</td>

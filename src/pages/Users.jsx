@@ -42,11 +42,18 @@ const renderBody = (item, index) => (
     <td>{item.email}</td>
     <td>{item.name}</td>
     <td>{item.role}</td>
-      <td> {item.interests.map(interest =>
-          <Badge type={colors[Math.floor(Math.random()*colors.length)]} content={interest}></Badge>)
-      }
-      </td>
-    <td><img src = {item.avatar || null} alt =""></img></td>
+    <td>
+      {item.interests.map((interest, index) => (
+        <span key={interest}>
+          <Badge
+            type={colors[Math.floor(Math.random() * colors.length)]}
+            content={interest}
+          ></Badge>
+          {(index + 1) % 3 === 0 && <br/>}
+        </span>
+      ))}
+    </td>
+    <td><img width={100} src = {item?.avatar?.url} alt =""></img></td>
     <td>{String(item.verified)}</td>
   </tr>
 );
