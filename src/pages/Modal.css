@@ -1,0 +1,19 @@
+.modal__backdrop {
+    bottom: 0;
+	left: 0;
+	overflow: auto;
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: 1;
+}
+
+.modal__container {
+	background: #fff;
+	border-radius: 5px;
+	max-width: 100%;
+	margin: 50px auto;
+	padding: 15px;
+	width: 560px;
+    transition: 3s ease-in-out;
+}

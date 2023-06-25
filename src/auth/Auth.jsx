@@ -16,11 +16,9 @@ const Auth = () => {
        <Route path="/dashboard" component={Layout} />
         <Route path="/users" component={Layout} />
         <Route path="/events" component={Layout} />
-        <Route path="/settings" component={Layout} />
-        <Route path="/change_password" component={Layout} />
+        <Route path="/reviews" component={Layout} />
         <Route path="/forgot_password" component={ForgotPassword} />
-        <Route path="/"
-        component={Login} />
+        <Route path="/" component={Login} />
       </Switch>
     </BrowserRouter>
   );

@@ -4,7 +4,9 @@ import Table from "../components/table/Table";
 
 import callAPI from "../api/api";
 
-import Badge from "../components/badge/Badge";
+import Badge from "../components/badge/Badge"
+
+import Modal from "./Modal";
 
 const customerTableHead = [
     "id", "Title", "Price", "Started Date", "Ended Date", "Topics", "Image", "Organizer", "Action", "Delete", "Edit"];
@@ -23,12 +25,18 @@ const colors = ["success", "primary", "warning", "secondary", "info", "light", "
 const Events = () => {
     const [listUser, setListUser] = useState();
     const [loading, setLoading] = useState(false);
+    const [isShowModal, setIsShowModal] = useState(false)
+
     useEffect(() => {
         getEvents()
         return () => {
             setLoading(false);
         };
     }, []);
+
+    const toggleModal = () => {
+		setIsShowModal(!isShowModal);
+	};
 
     async function getEvents() {
         try {
@@ -50,17 +58,14 @@ const Events = () => {
         }
     }
 
-    const update = async (id) => {
-
-    }
 
     const renderBody = (item, index) => (
         <tr key={index}>
             <td>{++index}</td>
             <td>{item.title}</td>
             <td>{item.price}</td>
-            <td>{item.started_date}</td>
-            <td>{item.ended_date}</td>
+            <td>{Date(item.started_date)}</td>
+            <td>{Date(item.ended_date)}</td>
             <td style={{width: '300px'}}>
             {item.topics.map((topic, index) => (
                 <span key={topic}>
@@ -88,7 +93,12 @@ const Events = () => {
     );
     return (
         <div>
+            {isShowModal && (<Modal onRequestClose={toggleModal} />)}
             <h2 className="page-header">All Events</h2>
+            <td>
+                <div className='cursor_pointer' onClick={toggleModal}>
+                    <Badge type="primary" content="Create new"/></div>
+            </td>
             <div className="row">
                 <div className="col-12">
                     <div className="card">

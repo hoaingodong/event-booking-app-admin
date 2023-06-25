@@ -18,11 +18,6 @@
         "display_name": "Review",
         "route": "/reviews",
         "icon": "bx bx-cog"
-    },
-    {
-        "display_name": "Change Password",
-        "route": "/change_password",
-        "icon": "bx bx-cog"
     }
     
 ]

@@ -56,6 +56,7 @@ const Reviews = () => {
             <td>{item?.to_user?.name}</td>
             <td>{item.stars}</td>
             <td>{item.content}</td>
+            <td>{Date(item.date)}</td>
             <td>{loading === true ? "loading..." :
                 <Badge type={badgeStatus[item.verified]} content={item.verified}/>}</td>
             <td>
