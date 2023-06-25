@@ -95,10 +95,8 @@ const Events = () => {
         <div>
             {isShowModal && (<Modal onRequestClose={toggleModal} />)}
             <h2 className="page-header">All Events</h2>
-            <td>
                 <div className='cursor_pointer' onClick={toggleModal}>
                     <Badge type="primary" content="Create new"/></div>
-            </td>
             <div className="row">
                 <div className="col-12">
                     <div className="card">
