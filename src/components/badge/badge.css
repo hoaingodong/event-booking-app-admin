@@ -3,7 +3,6 @@
     color: var(--txt-white);
     border-radius: 10px;
     box-shadow: var(--box-shadow);
-    /* display: inline; */
     margin: 5px;
 }
 

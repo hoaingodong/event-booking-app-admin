@@ -7,7 +7,7 @@ import callAPI from "../api/api";
 import Badge from "../components/badge/Badge";
 
 const customerTableHead = [
-    "id", "Title", "Price", "Started Date", "Ended Date", "Topics", "Image", "Organizer", "Action", "Delete", "Edit"];
+    "id", "From", "To", "Stars", "Content", "Date", "Action", "Delete"];
 
 const renderHead = (item, index) => <th key={index}>{item}</th>;
 
@@ -18,21 +18,19 @@ const badgeStatus = {
     banned: "danger",
 };
 
-const colors = ["success", "primary", "warning", "secondary", "info", "light", "dark", "muted", "white", "danger"]
-
-const Events = () => {
+const Reviews = () => {
     const [listUser, setListUser] = useState();
     const [loading, setLoading] = useState(false);
     useEffect(() => {
-        getEvents()
+        getReviews()
         return () => {
             setLoading(false);
         };
     }, []);
 
-    async function getEvents() {
+    async function getReviews() {
         try {
-            await callAPI("get", "/events/all")
+            await callAPI("get", "/reviews/")
                 .then((res) => {
                     setListUser(res?.data);
                 })
@@ -44,51 +42,31 @@ const Events = () => {
     const deleteUser = async (id) => {
         setLoading(true);
         if (window.confirm("Are you sure")) {
-            await callAPI("DELETE", `events/${id}`)
+            await callAPI("DELETE", `reviews/${id}`)
             setLoading(false);
             window.location.reload();
         }
     }
 
-    const update = async (id) => {
-
-    }
 
     const renderBody = (item, index) => (
         <tr key={index}>
             <td>{++index}</td>
-            <td>{item.title}</td>
-            <td>{item.price}</td>
-            <td>{item.started_date}</td>
-            <td>{item.ended_date}</td>
-            <td style={{width: '300px'}}>
-            {item.topics.map((topic, index) => (
-                <span key={topic}>
-                <Badge
-                    type={colors[Math.floor(Math.random() * colors.length)]}
-                    content={topic}
-                ></Badge>
-                {(index + 1) % 3 === 0 && <br/>}
-                </span>
-            ))}
-            </td>
-            <td><img width={200} src={item?.image?.url} alt=""></img></td>
-            <td>{item?.organizer?.name}</td>
+            <td>{item?.from_user?.name}</td>
+            <td>{item?.to_user?.name}</td>
+            <td>{item.stars}</td>
+            <td>{item.content}</td>
             <td>{loading === true ? "loading..." :
                 <Badge type={badgeStatus[item.verified]} content={item.verified}/>}</td>
             <td>
                 <div className='cursor_pointer' onClick={() => deleteUser(item.id)}>
                     <Badge type="danger" content="delete"/></div>
             </td>
-            <td>
-                <div className='cursor_pointer'>
-                    <Badge type="primary" content="edit"/></div>
-            </td>
         </tr>
     );
     return (
         <div>
-            <h2 className="page-header">All Events</h2>
+            <h2 className="page-header">All Reviews</h2>
             <div className="row">
                 <div className="col-12">
                     <div className="card">
@@ -110,4 +88,4 @@ const Events = () => {
     );
 };
 
-export default Events;
+export default Reviews;

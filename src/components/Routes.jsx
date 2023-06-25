@@ -8,6 +8,7 @@ import ChangePassword from "../pages/ChangePassword";
 import Events from "../pages/Events";
 import loggedIn from "../auth/loggedIn";
 import Login from "../pages/authentication/Login";
+import Reviews from "../pages/Reviews";
 
 const Routes = () => {
   const checkedLogin = loggedIn()
@@ -18,6 +19,7 @@ const Routes = () => {
       <Route path="/dashboard" exact component={Dashboard} />
       <Route path="/users" exact component={Users} />
       <Route path="/events" exact component={Events} />
+      <Route path="/reviews" exact component={Reviews} />
       <Route path="/change_password" exact component={ChangePassword} />
     </Switch>
   );
