@@ -9,6 +9,7 @@ import { MultiSelect } from "react-multi-select-component";
 import callAPI from "../api/api";
 import {useHistory} from "react-router-dom";
 import {Controller, useForm} from "react-hook-form";
+import {now} from "moment";
 
 const options = [
     { label: "Sports", value: "Sports" },
@@ -85,18 +86,42 @@ const Modal = ({onRequestClose}) => {
     //
     // }
 
-    const onSubmit = data => {
-        let formData = new FormData();
-        formData = {...data}
-        console.log(formData)
+    const onSubmit = (data, event) => {
+        const started_date = Date(now())
+        const ended_date = Date(now())
+        // const topics = ["Arts", "Sports", "Cook"]
+        const formData = new FormData();
+            const title = event.target.title.value
+            const price = event.target.price.value
+            const organizer = event.target.organizer.value
+            const longitude = event.target.longitude.value
+            const latitude = event.target.latitude.value
+            const address = event.target.address.value
+            const introduction = event.target.introduction.value
+            // const started_date = event.target.started_date.value
+            // const ended_date = event.target.ended_date.value
+            const files = event.target.files.value
+            // const topics = selected.map(item=> item.value)
+        formData.append("title", title)
+        formData.append("price", price)
+        formData.append("user_id", organizer)
+        formData.append("longitude", longitude)
+        formData.append("latitude", latitude)
+        formData.append("address", address)
+        formData.append("introduction", introduction)
+        formData.append("started_date", started_date)
+        formData.append("ended_date", ended_date)
+        formData.append("file", data.file[0])
+        formData.append("topics[]", ["arts", "hihi"])
 
         callAPI('post', '/events', formData).then((res)=>{
             setStatus(res.status);
             history.push('/dashboard');
         }).catch((err)=>{
-            setStatus(401);
+            setStatus(400);
         });
     };
+
     return (
             <div className="modal__backdrop">
                 <div className="modal__container">
@@ -127,27 +152,26 @@ const Modal = ({onRequestClose}) => {
 
                             <div className="date-picker">
                                 <div>
-                                    <label for="startDay">Started Date</label>
+                                    <label htmlFor="startDay">Started Date</label>
                                     <Controller
                                         control={control}
                                         name="started_date"
-                                        render={({ field: { onChange, onBlur, value } }) => (
-                                            <DateTimePicker id="startDay" format="yy/MM/dd h:mm:ss a"  value={startDay} name="started_date" onBlur={onBlur}
-                                                wrapperClassName="datePicker" onChange={setStartDay}
-                                                selected={value ? new Date(value) : ''}
-                                                dateFormat='dd-MMM-yyyy'
+                                        render={({field: {onBlur}}) => (
+                                            <DateTimePicker id="startDay" format="yy/MM/dd h:mm:ss a" onChange={setStartDay}
+                                                            value={startDay} onBlur={onBlur}
                                             />
                                         )}
                                     />
-                                </div>
 
+                                </div>
                                 <div>
-                                    <label for="endDay">Ended Date</label>
+                                    <label htmlFor="endDay">Ended Date</label>
                                     <Controller
                                         control={control}
                                         name="ended_date"
-                                        render={({ field: {  onBlur } }) => (
-                                            <DateTimePicker id="endDay" format="yy/MM/dd h:mm:ss a" onChange={setEndDay} value={endDay} name="ended_date" onBlur={onBlur}
+                                        render={({field: {onBlur}}) => (
+                                            <DateTimePicker id="endDay" format="yy/MM/dd h:mm:ss a" onChange={setEndDay}
+                                                            value={endDay} name="ended_date" onBlur={onBlur}
                                             />
                                         )}
                                     />
