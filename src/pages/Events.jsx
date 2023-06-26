@@ -54,6 +54,7 @@ const Events = () => {
         if (window.confirm("Are you sure")) {
             await callAPI("DELETE", `events/${id}`)
             setLoading(false);
+            alert("Delete successfully")
             window.location.reload();
         }
     }

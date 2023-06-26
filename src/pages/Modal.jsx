@@ -17,7 +17,11 @@ const options = [
     { label: "Game Online", value: "Game Online" },
     { label: "Food", value: "Food" },
     { label: "Dance", value: "Dance" },
+    { label: "Education", value: "Education" },
+    { label: "Fashion", value: "Fashion" },
+    { label: "Business", value: "Business" },
     { label: "Others", value: "Others" }
+
 ];
 
 const Modal = ({onRequestClose}) => {
@@ -63,6 +67,7 @@ const Modal = ({onRequestClose}) => {
         
         callAPI('post', '/events', formData).then((res)=>{
             setStatus(res.status);
+            alert("Create successfully")
             window.location.reload();
 
         }).catch((err)=>{

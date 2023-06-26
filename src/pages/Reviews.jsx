@@ -44,6 +44,7 @@ const Reviews = () => {
         if (window.confirm("Are you sure")) {
             await callAPI("DELETE", `reviews/${id}`)
             setLoading(false);
+            alert("Delete successfully")
             window.location.reload();
         }
     }
