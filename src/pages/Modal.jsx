@@ -131,13 +131,16 @@ const Modal = ({onRequestClose}) => {
                                     <Controller
                                         control={control}
                                         name="started_date"
-                                        render={({ field: {  onBlur } }) => (
-                                            <DateTimePicker id="startDay" format="yy/MM/dd h:mm:ss a" onChange={setStartDay} value={startDay} onBlur={onBlur}
+                                        render={({ field: { onChange, onBlur, value } }) => (
+                                            <DateTimePicker id="startDay" format="yy/MM/dd h:mm:ss a"  value={startDay} name="started_date" onBlur={onBlur}
+                                                wrapperClassName="datePicker" onChange={setStartDay}
+                                                selected={value ? new Date(value) : ''}
+                                                dateFormat='dd-MMM-yyyy'
                                             />
                                         )}
                                     />
-
                                 </div>
+
                                 <div>
                                     <label for="endDay">Ended Date</label>
                                     <Controller
