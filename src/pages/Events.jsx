@@ -9,7 +9,7 @@ import Badge from "../components/badge/Badge"
 import Modal from "./Modal";
 
 const customerTableHead = [
-    "id", "Title", "Price", "Started Date", "Ended Date", "Topics", "Image", "Organizer", "Action", "Delete", "Edit"];
+    "id", "Title", "Price", "Started Date", "Ended Date", "Topics", "Image", "Organizer", "Address", "Action", "Delete", "Edit"];
 
 const renderHead = (item, index) => <th key={index}>{item}</th>;
 
@@ -79,6 +79,8 @@ const Events = () => {
             </td>
             <td><img width={200} src={item?.image?.url} alt=""></img></td>
             <td>{item?.organizer?.name}</td>
+            <td>{item?.address}</td>
+            {/*<td>{item.introduction}</td>*/}
             <td>{loading === true ? "loading..." :
                 <Badge type={badgeStatus[item.verified]} content={item.verified}/>}</td>
             <td>

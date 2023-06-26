@@ -109,7 +109,8 @@ fieldset a {
     opacity: .75;
 }
 
-label[for='title'] , label[for='price'], label[for = "topics"], label[for = "images"], label[for = "startDay"], label[for = "endDay"]{
+label[for='title'] , label[for='price'], label[for = "topics"], label[for = "images"], label[for = "startDay"], label[for = "endDay"],
+label[for = "organizer"], label[for = "longitude"], label[for = "latitude"], label[for = "address"], label[for = "introduction"]{
     color: #333;
     font-weight: 700;
     font-size: 15px;
@@ -117,6 +118,7 @@ label[for='title'] , label[for='price'], label[for = "topics"], label[for = "ima
     margin: 0;
     text-transform: uppercase;
 }
+
 input[type="text"] {
     margin: 0;
     font-size: 18px;
@@ -129,6 +131,7 @@ input[type="text"] {
     font-family: Lato, sans-serif;
     color: #888;
 }
+
 input[type="text"]:focus {
     color: #333;
 }
@@ -137,10 +140,12 @@ input[type="text"]:focus {
 label[for='new-task'] {
     display: block;
 }
+
 input#new-task {
     float: left;
     width: 100%;
 }
+
 p > button:hover {
   color: #0FC57C;
 }
