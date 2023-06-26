@@ -9,7 +9,7 @@
 }
 
 .modal__container {
-	background: #fff;
+	background: #bbcad3;
 	border-radius: 5px;
 	max-width: 100%;
 	margin: 50px auto;
@@ -17,8 +17,13 @@
 	width: 800px;
     transition: 3s ease-in-out;
 }
+
+.modal__close {
+    margin-left: 90%;
+}
+
 body {
-    margin: 50px auto;
+    margin: auto;
     font-family: 'Poppins', sans-serif;
     color: #d9dcd6;
     background-image: url('https://images.unsplash.com/photo-1619266465172-02a857c3556d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1331&q=80');
@@ -40,13 +45,11 @@ header {
 
 }
 
-#survey-form {
+#create-form {
     position: relative;
-
     display: flex;
     flex-direction: column;
     padding: 10px 50px;
-    /* border-top: 2px solid rgb(51, 54, 52); */
 
 }
 
@@ -62,13 +65,11 @@ header {
     font-size: 16px;
 }
 
-
 textarea {
     font-family: 'Poppins', sans-serif;
 }
 
 fieldset {
-
     padding-bottom: 20px;
     border: none;
 }
@@ -108,8 +109,7 @@ fieldset a {
     opacity: .75;
 }
 
-
-label[for='new-task'] , label[for='price'], label[for = "topics"]{
+label[for='title'] , label[for='price'], label[for = "topics"], label[for = "images"], label[for = "startDay"], label[for = "endDay"]{
     color: #333;
     font-weight: 700;
     font-size: 15px;
@@ -118,7 +118,6 @@ label[for='new-task'] , label[for='price'], label[for = "topics"]{
     text-transform: uppercase;
 }
 input[type="text"] {
-
     margin: 0;
     font-size: 18px;
     line-height: 20px;
@@ -156,7 +155,6 @@ p > button:hover {
     color: black;
 }
 
-
 input[type=file]::file-selector-button {
     margin-right: 20px;
     border: none;
@@ -167,11 +165,10 @@ input[type=file]::file-selector-button {
     cursor: pointer;
     transition: background .2s ease-in-out;
   }
-  
+
   input[type=file]::file-selector-button:hover {
     background: #0d45a5;
   }
-
 
 
 /* CSS */
