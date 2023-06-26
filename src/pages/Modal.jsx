@@ -7,9 +7,7 @@ import 'react-calendar/dist/Calendar.css';
 import 'react-clock/dist/Clock.css';
 import { MultiSelect } from "react-multi-select-component";
 import callAPI from "../api/api";
-import {useHistory} from "react-router-dom";
-import {Controller, useForm} from "react-hook-form";
-import {now} from "moment";
+import {useForm} from "react-hook-form";
 
 const options = [
     { label: "Sports", value: "Sports" },
@@ -26,9 +24,8 @@ const Modal = ({onRequestClose}) => {
     const [startDay, setStartDay] = useState(new Date());
     const [endDay, setEndDay] = useState(new Date());
     const [selected, setSelected] = useState([]);
-    const history = useHistory();
     const [status, setStatus] = useState();
-    const { register, handleSubmit, control } = useForm();
+    const { register, handleSubmit } = useForm();
 
     useEffect(() => {
         function onKeyDown(event) {
@@ -38,70 +35,20 @@ const Modal = ({onRequestClose}) => {
 		}
     });
 
-    // const createNewEvent = async (event) => {
-    //     event.preventDefault()
-    //     const title = event.target.title.value
-    //     const price = event.target.price.value
-    //     const organizer = event.target.organizer.value
-    //     const longitude = event.target.longitude.value
-    //     const latitude = event.target.latitude.value
-    //     const address = event.target.address.value
-    //     const introduction = event.target.introduction.value
-    //     const started_date = event.target.started_date.value
-    //     const ended_date = event.target.ended_date.value
-    //     const files = event.target.files.value
-    //     const topics = selected.map(item=> item.value)
-    //
-    //     event.target.title.value = ""
-    //     event.target.price.value = ""
-    //     event.target.organizer.value = ""
-    //     event.target.longitude.value = ""
-    //     event.target.latitude.value = ""
-    //     event.target.address.value = ""
-    //     event.target.introduction.value = ""
-    //     event.target.started_date.value = ""
-    //     event.target.ended_date.value = ""
-    //     event.target.files.value = ""
-    //
-    //     const newEvent = {
-    //         title: title,
-    //         price: price,
-    //         user_id: organizer,
-    //         longitude: longitude,
-    //         latitude: latitude,
-    //         address: address,
-    //         introduction: introduction,
-    //         topics: topics,
-    //         started_date: started_date,
-    //         ended_date: ended_date,
-    //         // files: files
-    //     }
-    //
-    //     console.log(newEvent)
-    //     callAPI('post', '/events', newEvent).then((res)=>{
-    //         history.push('/dashboard');
-    //     }).catch((err)=>{
-    //         setStatus(400);
-    //     });
-    //
-    // }
-
     const onSubmit = (data, event) => {
-        const started_date = Date(now())
-        const ended_date = Date(now())
-        // const topics = ["Arts", "Sports", "Cook"]
+        
         const formData = new FormData();
-            const title = event.target.title.value
-            const price = event.target.price.value
-            const organizer = event.target.organizer.value
-            const longitude = event.target.longitude.value
-            const latitude = event.target.latitude.value
-            const address = event.target.address.value
-            const introduction = event.target.introduction.value
-            // const started_date = event.target.started_date.value
-            // const ended_date = event.target.ended_date.value
-            const files = event.target.files.value
-            // const topics = selected.map(item=> item.value)
+        const title = event.target.title.value
+        const price = event.target.price.value
+        const organizer = event.target.organizer.value
+        const longitude = event.target.longitude.value
+        const latitude = event.target.latitude.value
+        const address = event.target.address.value
+        const introduction = event.target.introduction.value
+        const topics = selected.map(item=>item.value)
+        const started_date = startDay
+        const ended_date = endDay
+
         formData.append("title", title)
         formData.append("price", price)
         formData.append("user_id", organizer)
@@ -112,11 +59,12 @@ const Modal = ({onRequestClose}) => {
         formData.append("started_date", started_date)
         formData.append("ended_date", ended_date)
         formData.append("file", data.file[0])
-        formData.append("topics[]", ["arts", "hihi"])
-
+        topics.map(topic => formData.append("topics[]", topic))
+        
         callAPI('post', '/events', formData).then((res)=>{
             setStatus(res.status);
-            history.push('/dashboard');
+            window.location.reload();
+
         }).catch((err)=>{
             setStatus(400);
         });
@@ -130,68 +78,45 @@ const Modal = ({onRequestClose}) => {
                     </div>
                     <form id="create-form" method="POST" onSubmit={handleSubmit(onSubmit)}>
                             <label for="title">Title</label>
-                            <input id="title" type="text" name="title"  {...register("title", { required: true })} />
+                            <input id="title" type="text" name="title" required />
 
                             <label for="price">Price</label>
-                            <input id="price" type="text" name="price"  {...register("price", { required: true })}/>
+                            <input id="price" type="text" name="price" required/>
 
                             <label for="organizer">Organizer</label>
-                            <input id="organizer" type="text" name="organizer"  {...register("user_id", { required: true })}/>
+                            <input id="organizer" type="text" name="organizer" required/>
 
                             <label htmlFor="longitude">Longitude</label>
-                            <input id="longitude" type="text" name="longitude" {...register("longitude", { required: true })} />
+                            <input id="longitude" type="text" name="longitude" required/>
 
                             <label htmlFor="latitude">Latitude</label>
-                            <input id="latitude" type="text" name="latitude" {...register("latitude", { required: true })} />
+                            <input id="latitude" type="text" name="latitude" required/>
 
                             <label htmlFor="address">Address</label>
-                            <input id="address" type="text" name="address" {...register("address", { required: true })} />
+                            <input id="address" type="text" name="address" required/>
 
                             <label htmlFor="address">Introduction</label>
-                            <input id="introduction" type="text" name="introduction" {...register("introduction", { required: true })} />
+                            <input id="introduction" type="text" name="introduction" required/>
 
                             <div className="date-picker">
                                 <div>
-                                    <label htmlFor="startDay">Started Date</label>
-                                    <Controller
-                                        control={control}
-                                        name="started_date"
-                                        render={({field: {onBlur}}) => (
-                                            <DateTimePicker id="startDay" format="yy/MM/dd h:mm:ss a" onChange={setStartDay}
-                                                            value={startDay} onBlur={onBlur}
-                                            />
-                                        )}
-                                    />
-
+                                    <label for="startDay">Started Date</label>
+                                    <DateTimePicker id="startDay" format="dd/MM/yy h:mm:ss a" onChange={setStartDay} value={startDay} name="started_date" required/>
                                 </div>
                                 <div>
-                                    <label htmlFor="endDay">Ended Date</label>
-                                    <Controller
-                                        control={control}
-                                        name="ended_date"
-                                        render={({field: {onBlur}}) => (
-                                            <DateTimePicker id="endDay" format="yy/MM/dd h:mm:ss a" onChange={setEndDay}
-                                                            value={endDay} name="ended_date" onBlur={onBlur}
-                                            />
-                                        )}
-                                    />
+                                    <label for="endDay">Ended Date </label>
+                                    <DateTimePicker id="endDay" format="dd/MM/yy h:mm:ss a" onChange={setEndDay} value={endDay} name="ended_date" required/>
                                 </div>
                             </div>
 
                             <div className="select-topic">
                                 <label for="topics">Topics</label>
                                 <div>
-                                    <Controller
-                                        control={control}
-                                        name="topics"
-                                        render={({ field: { onChange, onBlur, value } }) => (
-                                            <MultiSelect id="topics"
-                                                         options={options}
-                                                         value={selected}
-                                                         onChange={setSelected}
-                                                         labelledBy="Select"
-                                            />
-                                        )}
+                                    <MultiSelect id="topics"
+                                    options={options}
+                                    value={selected}
+                                    onChange={setSelected}
+                                    labelledBy="Select"
                                     />
                                 </div>
                             </div>
@@ -200,7 +125,7 @@ const Modal = ({onRequestClose}) => {
                                 <div>
                                     <label for="images">Image</label>
                                     <label for="images" class="drop-container">
-                                    <input type="file" id="images" accept="image/*" name="files" {...register("file", { required: true })}/>
+                                    <input type="file" id="images" accept="image/*" name="files" {...register("file")} required/>
                                     </label>
                                 </div>
                             </div>
