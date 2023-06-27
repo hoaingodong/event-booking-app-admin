@@ -40,7 +40,7 @@ const Modal = ({onRequestClose}) => {
     });
 
     const onSubmit = (data, event) => {
-        
+
         const formData = new FormData();
         const title = event.target.title.value
         const price = event.target.price.value
@@ -50,21 +50,21 @@ const Modal = ({onRequestClose}) => {
         const address = event.target.address.value
         const introduction = event.target.introduction.value
         const topics = selected.map(item=>item.value)
-        const started_date = startDay
-        const ended_date = endDay
+        const startDate = startDay
+        const endDate = endDay
 
         formData.append("title", title)
         formData.append("price", price)
-        formData.append("user_id", organizer)
+        formData.append("organizer", organizer)
         formData.append("longitude", longitude)
         formData.append("latitude", latitude)
         formData.append("address", address)
         formData.append("introduction", introduction)
-        formData.append("started_date", started_date)
-        formData.append("ended_date", ended_date)
+        formData.append("startDate", startDate)
+        formData.append("endDate", endDate)
         formData.append("file", data.file[0])
         topics.map(topic => formData.append("topics[]", topic))
-        
+
         callAPI('post', '/events', formData).then((res)=>{
             setStatus(res.status);
             alert("Create successfully")
@@ -106,11 +106,11 @@ const Modal = ({onRequestClose}) => {
                             <div className="date-picker">
                                 <div>
                                     <label for="startDay">Started Date</label>
-                                    <DateTimePicker id="startDay" format="dd/MM/yy h:mm:ss a" onChange={setStartDay} value={startDay} name="started_date" required/>
+                                    <DateTimePicker id="startDay" format="dd/MM/yy h:mm:ss a" onChange={setStartDay} value={startDay} name="startDate" required/>
                                 </div>
                                 <div>
                                     <label for="endDay">Ended Date </label>
-                                    <DateTimePicker id="endDay" format="dd/MM/yy h:mm:ss a" onChange={setEndDay} value={endDay} name="ended_date" required/>
+                                    <DateTimePicker id="endDay" format="dd/MM/yy h:mm:ss a" onChange={setEndDay} value={endDay} name="endDate" required/>
                                 </div>
                             </div>
 
