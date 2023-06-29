@@ -8,6 +8,8 @@ import Badge from "../components/badge/Badge"
 
 import Modal from "./Modal";
 
+import UpdateModal from "./UpdateModal"
+
 const customerTableHead = [
     "id", "Title", "Price", "Started Date", "Ended Date", "Topics", "Image", "Organizer", "Address", "Action", "Delete", "Edit"];
 
@@ -26,6 +28,8 @@ const Events = () => {
     const [listUser, setListUser] = useState();
     const [loading, setLoading] = useState(false);
     const [isShowModal, setIsShowModal] = useState(false)
+    const [isShowUpdateModal, setIsShowUpdateModal] = useState(false)
+    const [itemDetail, setItemDetail] = useState()
 
     useEffect(() => {
         getEvents()
@@ -37,6 +41,19 @@ const Events = () => {
     const toggleModal = () => {
 		setIsShowModal(!isShowModal);
 	};
+
+    const toggleUpdateModal = () => {
+		setIsShowUpdateModal(!isShowUpdateModal);
+	};
+
+    const onUpdateItem =  (id) => {
+        callAPI("get", `/events/${id}`)
+                .then((res) => {
+                    setItemDetail(res?.data);
+                })
+                .catch((err) => console.log(err));
+        toggleUpdateModal()
+    }
 
     async function getEvents() {
         try {
@@ -89,7 +106,7 @@ const Events = () => {
                     <Badge type="danger" content="delete"/></div>
             </td>
             <td>
-                <div className='cursor_pointer'>
+                <div className='cursor_pointer' onClick={() => onUpdateItem(item.id)}>
                     <Badge type="primary" content="edit"/></div>
             </td>
         </tr>
@@ -97,6 +114,7 @@ const Events = () => {
     return (
         <div>
             {isShowModal && (<Modal onRequestClose={toggleModal} />)}
+            {isShowUpdateModal && (<UpdateModal onRequestClose={toggleUpdateModal} eventDetail={itemDetail} />)}
             <h2 className="page-header">All Events</h2>
                 <div className='cursor_pointer' onClick={toggleModal}>
                     <Badge type="primary" content="Create new"/></div>
