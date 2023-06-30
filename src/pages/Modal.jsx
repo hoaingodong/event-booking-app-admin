@@ -30,6 +30,8 @@ const Modal = ({onRequestClose}) => {
     const [selected, setSelected] = useState([]);
     const [status, setStatus] = useState();
     const { register, handleSubmit } = useForm();
+    const [organizerSelected, setOrganizerSelected] = useState([])
+    const [organizers, setOrganizers] = useState([])
 
     useEffect(() => {
         function onKeyDown(event) {
@@ -39,12 +41,23 @@ const Modal = ({onRequestClose}) => {
 		}
     });
 
+    const data = async () => {
+        const optionUsers = await callAPI('get', '/users')
+        const users = optionUsers?.data
+        const optionOrganizers = users.map(user => {return {label: user.name, value: user.id }})
+        setOrganizers(optionOrganizers)
+    }
+
+    useEffect(() => {
+        data()
+    }, []);
+
     const onSubmit = (data, event) => {
 
         const formData = new FormData();
         const title = event.target.title.value
         const price = event.target.price.value
-        const organizer = event.target.organizer.value
+        const organizer = organizerSelected[0].value
         const longitude = event.target.longitude.value
         const latitude = event.target.latitude.value
         const address = event.target.address.value
@@ -52,7 +65,7 @@ const Modal = ({onRequestClose}) => {
         const topics = selected.map(item=>item.value)
         const startDate = startDay
         const endDate = endDay
-
+        // console.log(organizerSelected[0].value)
         formData.append("title", title)
         formData.append("price", price)
         formData.append("organizer", organizer)
@@ -88,8 +101,19 @@ const Modal = ({onRequestClose}) => {
                             <label for="price">Price</label>
                             <input id="price" type="text" name="price" required/>
 
-                            <label for="organizer">Organizer</label>
-                            <input id="organizer" type="text" name="organizer" required/>
+                            <div className="select-organizer">
+                                <label htmlFor="organizer">Organizer</label>
+                                <div>
+                                    <MultiSelect id="organizer"
+                                                 selectionLimit={1}
+                                                 options = {organizers}
+                                                 value={organizerSelected}
+                                                 onChange={setOrganizerSelected}
+                                                 labelledBy="Select"
+
+                                    />
+                                </div>
+                            </div>
 
                             <label htmlFor="longitude">Longitude</label>
                             <input id="longitude" type="text" name="longitude" required/>
@@ -100,8 +124,8 @@ const Modal = ({onRequestClose}) => {
                             <label htmlFor="address">Address</label>
                             <input id="address" type="text" name="address" required/>
 
-                            <label htmlFor="address">Introduction</label>
-                            <input id="introduction" type="text" name="introduction" required/>
+                            <label htmlFor="introduction">Introduction</label>
+                            <textarea id="introduction" type="text" name="introduction" required/>
 
                             <div className="date-picker">
                                 <div>

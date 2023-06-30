@@ -38,48 +38,24 @@ const Modal = ({onRequestClose, eventDetail}) => {
 		}
     });
 
-    const data = async () => { 
-        const optionUsers = await callAPI('get', '/users')
-        const users = optionUsers?.data
-        const option = users.map(user => {return {label: user.name, value: user.id }})
-        console.log(option)
-    }
-
-    useEffect(() => {
-        data()
-    }, []);
-
     const onSubmit = (data, event) => {
 
-        const formData = new FormData();
-        const title = event.target.title.value
-        const price = event.target.price.value
-        const organizer = event.target.organizer.value
-        const longitude = event.target.longitude.value
-        const latitude = event.target.latitude.value
-        const address = event.target.address.value
-        const introduction = event.target.introduction.value
-        const topics = selected.map(item=>item.value)
-        const startDate = startDay
-        const endDate = endDay
+        const editEvent = {
+            title: event.target.title.value,
+            price: event.target.price.value,
+            longitude: event.target.longitude.value,
+            latitude: event.target.latitude.value,
+            address: event.target.address.value,
+            introduction: event.target.introduction.value,
+            topics: selected.map(item => item.value),
+            startDate: startDay,
+            endDate: endDay,
+        }
 
-        formData.append("title", title)
-        formData.append("price", price)
-        formData.append("organizer", organizer)
-        formData.append("longitude", longitude)
-        formData.append("latitude", latitude)
-        formData.append("address", address)
-        formData.append("introduction", introduction)
-        formData.append("startDate", startDate)
-        formData.append("endDate", endDate)
-        formData.append("file", data.file[0])
-        topics.map(topic => formData.append("topics[]", topic))
-
-        callAPI('post', '/events', formData).then((res)=>{
+        callAPI('put', `/events/${eventDetail.id}`, editEvent).then((res)=>{
             setStatus(res.status);
-            alert("Create successfully")
+            alert("Edit successfully")
             window.location.reload();
-
         }).catch((err)=>{
             setStatus(400);
         });
@@ -99,28 +75,30 @@ const Modal = ({onRequestClose, eventDetail}) => {
                             <input id="price" type="text" name="price" defaultValue = {eventDetail?.price} required/>
 
                             <label for="organizer">Organizer</label>
-                            <input id="organizer" type="text" name="organizer" defaultValue = {eventDetail?.organizer.name}required/>
+                            <input id="organizer" type="text" name="organizer" defaultValue = {eventDetail?.organizer.name} disabled required/>
 
                             <label htmlFor="longitude">Longitude</label>
-                            <input id="longitude" type="text" name="longitude" required/>
+                            <input id="longitude" type="text" name="longitude" defaultValue = {eventDetail?.location?.coordinates[0]} required/>
 
                             <label htmlFor="latitude">Latitude</label>
-                            <input id="latitude" type="text" name="latitude" required/>
+                            <input id="latitude" type="text" name="latitude" defaultValue = {eventDetail?.location?.coordinates[1]} required/>
 
                             <label htmlFor="address">Address</label>
-                            <input id="address" type="text" name="address" required/>
+                            <input id="address" type="text" name="address" defaultValue = {eventDetail?.address} required/>
 
                             <label htmlFor="address">Introduction</label>
-                            <input id="introduction" type="text" name="introduction" required/>
+                            <textarea id="introduction" type="text" name="introduction" defaultValue = {eventDetail?.introduction}required/>
 
                             <div className="date-picker">
                                 <div>
                                     <label for="startDay">Started Date</label>
-                                    <DateTimePicker id="startDay" format="dd/MM/yy h:mm:ss a" onChange={setStartDay} value={startDay} name="startDate" required/>
+                                    <DateTimePicker id="startDay" format="dd/MM/yy h:mm:ss a" onChange={setStartDay} value={startDay} name="startDate"
+                                                    defaultValue = {eventDetail?.startDate}required/>
                                 </div>
                                 <div>
                                     <label for="endDay">Ended Date </label>
-                                    <DateTimePicker id="endDay" format="dd/MM/yy h:mm:ss a" onChange={setEndDay} value={endDay} name="endDate" required/>
+                                    <DateTimePicker id="endDay" format="dd/MM/yy h:mm:ss a" onChange={setEndDay} value={endDay} name="endDate"
+                                                    defaultValue = {eventDetail?.endDate}required/>
                                 </div>
                             </div>
 
@@ -132,6 +110,7 @@ const Modal = ({onRequestClose, eventDetail}) => {
                                     value={selected}
                                     onChange={setSelected}
                                     labelledBy="Select"
+                                                 defaultValue = {eventDetail?.topics}
                                     />
                                 </div>
                             </div>
