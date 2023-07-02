@@ -9,7 +9,7 @@ import Login from "../pages/authentication/Login";
 
 const Auth = () => {
   return (
-    
+
     <BrowserRouter>
       <Switch>
        <Route path="/login" component={Login} />

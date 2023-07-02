@@ -6,6 +6,7 @@ import 'react-datetime-picker/dist/DateTimePicker.css';
 import 'react-calendar/dist/Calendar.css';
 import 'react-clock/dist/Clock.css';
 import { MultiSelect } from "react-multi-select-component";
+import Select from 'react-select';
 import callAPI from "../api/api";
 import {useForm} from "react-hook-form";
 
@@ -21,7 +22,6 @@ const options = [
     { label: "Fashion", value: "Fashion" },
     { label: "Business", value: "Business" },
     { label: "Others", value: "Others" }
-
 ];
 
 const Modal = ({onRequestClose}) => {
@@ -32,6 +32,8 @@ const Modal = ({onRequestClose}) => {
     const { register, handleSubmit } = useForm();
     const [organizerSelected, setOrganizerSelected] = useState([])
     const [organizers, setOrganizers] = useState([])
+
+    console.log(organizers)
 
     useEffect(() => {
         function onKeyDown(event) {
@@ -57,7 +59,7 @@ const Modal = ({onRequestClose}) => {
         const formData = new FormData();
         const title = event.target.title.value
         const price = event.target.price.value
-        const organizer = organizerSelected[0].value
+        const organizer = organizerSelected.value
         const longitude = event.target.longitude.value
         const latitude = event.target.latitude.value
         const address = event.target.address.value
@@ -65,7 +67,7 @@ const Modal = ({onRequestClose}) => {
         const topics = selected.map(item=>item.value)
         const startDate = startDay
         const endDate = endDay
-        // console.log(organizerSelected[0].value)
+
         formData.append("title", title)
         formData.append("price", price)
         formData.append("organizer", organizer)
@@ -81,8 +83,7 @@ const Modal = ({onRequestClose}) => {
         callAPI('post', '/events', formData).then((res)=>{
             setStatus(res.status);
             alert("Create successfully")
-            window.location.reload();
-
+            onRequestClose()
         }).catch((err)=>{
             setStatus(400);
         });
@@ -104,8 +105,7 @@ const Modal = ({onRequestClose}) => {
                             <div className="select-organizer">
                                 <label htmlFor="organizer">Organizer</label>
                                 <div>
-                                    <MultiSelect id="organizer"
-                                                 selectionLimit={1}
+                                    <Select id="organizer"
                                                  options = {organizers}
                                                  value={organizerSelected}
                                                  onChange={setOrganizerSelected}

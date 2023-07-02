@@ -19,7 +19,7 @@ export default function Login() {
   const onSubmit = data => {
     console.log("🚀 ~ file: Login.jsx:20 ~ onSubmit ~ data:", data);
     setLoad(true);
-    callAPI('post', '/users/login', data).then((res)=>{
+    callAPI('post', '/me/login', data).then((res)=>{
       setLoad(false);
       setStatus(res.status);
       sessionStorage.setItem('__token__', JSON.stringify(res.data.token));
