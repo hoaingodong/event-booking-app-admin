@@ -2,7 +2,6 @@ import React from "react";
 
 import { Route, Switch } from "react-router-dom";
 
-import Dashboard from "../pages/Dashboard";
 import Users from "../pages/Users";
 import Events from "../pages/Events";
 import Reviews from "../pages/Reviews";
@@ -10,7 +9,6 @@ import Reviews from "../pages/Reviews";
 const Routes = () => {
   return (
     <Switch>
-      <Route path="/dashboard" exact component={Dashboard} />
       <Route path="/users" exact component={Users} />
       <Route path="/events" exact component={Events} />
       <Route path="/reviews" exact component={Reviews} />

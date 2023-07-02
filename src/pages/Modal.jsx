@@ -100,7 +100,7 @@ const Modal = ({onRequestClose}) => {
                             <input id="title" type="text" name="title" required />
 
                             <label for="price">Price</label>
-                            <input id="price" type="text" name="price" required/>
+                            <input id="price" type="number" name="price" required/>
 
                             <div className="select-organizer">
                                 <label htmlFor="organizer">Organizer</label>
@@ -116,10 +116,10 @@ const Modal = ({onRequestClose}) => {
                             </div>
 
                             <label htmlFor="longitude">Longitude</label>
-                            <input id="longitude" type="text" name="longitude" required/>
+                            <input id="longitude" type="number" name="longitude" required/>
 
                             <label htmlFor="latitude">Latitude</label>
-                            <input id="latitude" type="text" name="latitude" required/>
+                            <input id="latitude" type="number" name="latitude" required/>
 
                             <label htmlFor="address">Address</label>
                             <input id="address" type="text" name="address" required/>

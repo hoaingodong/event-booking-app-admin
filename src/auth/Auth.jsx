@@ -13,7 +13,6 @@ const Auth = () => {
     <BrowserRouter>
       <Switch>
        <Route path="/login" component={Login} />
-       <Route path="/dashboard" component={Layout} />
         <Route path="/users" component={Layout} />
         <Route path="/events" component={Layout} />
         <Route path="/reviews" component={Layout} />

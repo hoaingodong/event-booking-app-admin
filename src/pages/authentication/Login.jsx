@@ -23,7 +23,7 @@ export default function Login() {
       setLoad(false);
       setStatus(res.status);
       sessionStorage.setItem('__token__', JSON.stringify(res.data.token));
-      history.push('/dashboard');
+      history.push('/users');
     }).catch((err)=>{
       setLoad(false);
       setStatus(401);

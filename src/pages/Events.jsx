@@ -81,7 +81,7 @@ const Events = () => {
         <tr key={index}>
             <td>{++index}</td>
             <td>{item.title}</td>
-            <td>{item.price}</td>
+            <td>{item.price + "$"}</td>
             <td>{Date(item.started_date)}</td>
             <td>{Date(item.ended_date)}</td>
             <td style={{width: '300px'}}>
@@ -98,7 +98,6 @@ const Events = () => {
             <td><img width={200} src={item?.image?.url} alt=""></img></td>
             <td>{item?.organizer?.name}</td>
             <td>{item?.address}</td>
-            {/*<td>{item.introduction}</td>*/}
             <td>{loading === true ? "loading..." :
                 <Badge type={badgeStatus[item.verified]} content={item.verified}/>}</td>
             <td>

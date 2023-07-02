@@ -53,8 +53,8 @@ const Reviews = () => {
     const renderBody = (item, index) => (
         <tr key={index}>
             <td>{++index}</td>
-            <td>{item?.from_user?.name}</td>
-            <td>{item?.to_user?.name}</td>
+            <td>{item?.fromUser?.name}</td>
+            <td>{item?.toUser?.name}</td>
             <td>{item.stars}</td>
             <td>{item.content}</td>
             <td>{Date(item.date)}</td>

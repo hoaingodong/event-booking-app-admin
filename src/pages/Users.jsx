@@ -54,7 +54,7 @@ const renderBody = (item, index) => (
       ))}
     </td>
     <td><img width={100} src = {item?.avatar?.url} alt =""></img></td>
-    <td>{String(item.verified)}</td>
+    <td>{item.verified && "Yes" || "No"}</td>
   </tr>
 );
   return (

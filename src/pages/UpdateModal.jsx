@@ -94,7 +94,7 @@ const Modal = ({ onRequestClose, eventDetail }) => {
           <label for="price">Price</label>
           <input
             id="price"
-            type="text"
+            type="number"
             name="price"
             defaultValue={eventDetail?.price}
             required
@@ -113,7 +113,7 @@ const Modal = ({ onRequestClose, eventDetail }) => {
           <label htmlFor="longitude">Longitude</label>
           <input
             id="longitude"
-            type="text"
+            type="number"
             name="longitude"
             defaultValue={eventDetail?.location?.coordinates[0]}
             required
@@ -122,7 +122,7 @@ const Modal = ({ onRequestClose, eventDetail }) => {
           <label htmlFor="latitude">Latitude</label>
           <input
             id="latitude"
-            type="text"
+            type="number"
             name="latitude"
             defaultValue={eventDetail?.location?.coordinates[1]}
             required
