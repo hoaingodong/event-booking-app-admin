@@ -25,7 +25,7 @@ const options = [
 
 
 const Modal = ({ onRequestClose, eventDetail }) => {
-  
+
   console.log(eventDetail)
   const [startDay, setStartDay] = useState(new Date());
   const [endDay, setEndDay] = useState(new Date());
@@ -46,7 +46,7 @@ const Modal = ({ onRequestClose, eventDetail }) => {
   }
 
   useEffect(() => {
-    if (eventDetail) 
+    if (eventDetail)
     {
     topicsOption(eventDetail)}
   }, [eventDetail]);
@@ -115,7 +115,7 @@ const Modal = ({ onRequestClose, eventDetail }) => {
             id="longitude"
             type="number"
             name="longitude"
-            defaultValue={eventDetail?.location?.coordinates[0]}
+            defaultValue={eventDetail?.location?.coordinates.longitude}
             required
           />
 
@@ -124,7 +124,7 @@ const Modal = ({ onRequestClose, eventDetail }) => {
             id="latitude"
             type="number"
             name="latitude"
-            defaultValue={eventDetail?.location?.coordinates[1]}
+            defaultValue={eventDetail?.location?.coordinates.latitude}
             required
           />
 
